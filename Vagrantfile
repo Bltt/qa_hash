@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
+require 'yaml'
+machines = YAML.load_file("config.yaml")
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -12,11 +13,37 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos/7"
-  config.vm.provider "virtualbox" do |vb|
-	  vb.memory = 2048
- 	  vb.cpus   = 2
+  machines.each do |machine|
+	config.vm.define "#{machine['name']}" do |new_vm|
+		new_vm.vm.box = "#{machine['box']}"
+		new_vm.vm.provider "virtualbox" do |vb|
+			vb.cpus = "#{machine['cpus']}"
+			vb.memory = "#{machine['memory']}"
+		end
+	end
   end
+  
+
+#  config.vm.define "jenkins" do |jenkins|
+#	  jenkins.vm.box = "centos/7"
+#	  jenkins.vm.network "forwarded_port", guest: 9000, host: 9000
+#	  jenkins.vm.provider "virtualbox" do |vb|
+#		  vb.memory = 2048
+#		  vb.cpus   = 2
+#  	end
+#       jenkins.vm.provision "shell", path: "vagrant_scripts/install_server"
+#  end
+#
+#  config.vm.define "server" do |server|
+#          server.vm.box = "centos/7"
+#          server.vm.network "forwarded_port", guest: 9000, host: 9001
+#          server.vm.provider "virtualbox" do |vb|
+#                  vb.memory = 2048
+#                  vb.cpus   = 2
+#        end
+#        server.vm.provision "shell", path: "vagrant_scripts/install_server"
+#  end
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -27,7 +54,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -36,7 +63,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
