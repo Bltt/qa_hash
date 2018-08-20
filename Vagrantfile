@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
 		set_box(machine, new_vm)
 		set_forwarded_ports(machine, new_vm)
 		set_cpus_and_memory(machine, new_vm)	
+		update_package_manager(machine, new_vm)
 		install_packages(machine, new_vm)	
 		run_scripts(machine, new_vm)
 	end
@@ -32,11 +33,26 @@ def set_cpus_and_memory(machine, new_vm)
 	end
 end
 
+def update_package_manager(machine, new_vm)
+	 if machine['package_manager'] == "apt-get"
+	         new_vm.vm.provision "shell", inline: "sudo #{machine['package_manager']} upgrade -y"
+	 else
+		 new_vm.vm.provision "shell", inline: "sudo #{machine['package_manager']} update -y"
+	 end
+
+end
+
 def install_packages(machine, new_vm)
 	machine['packages'].each do |pkg|
-                        new_vm.vm.provision "shell", inline: <<-SHELL
-                	sudo yum install -y "#{pkg}"
-        	SHELL
+                if machine['package_manager'] == "apk"
+			new_vm.vm.provision "shell", inline: <<-SHELL
+				sudo #{machine['package_manager']} add #{pkg}
+			SHELL
+		else
+			new_vm.vm.provision "shell", inline: <<-SHELL
+                		sudo #{machine['package_manager']} install -y "#{pkg}"
+        		SHELL
+		end
 	end
 end
 
