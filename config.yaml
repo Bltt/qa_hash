@@ -12,6 +12,9 @@
   packages:
   - git
   - vim
+  shared_folders:
+  - host: ~/shared_vagrant
+    guest: /home/vagrant/shared
   scripts:
   - install_server
 - name: server
@@ -27,6 +30,9 @@
   packages:
   - git
   - vim
+  shared_folders:
+  - host: ~/shared_vagrant
+    guest: /home/vagrant/shared
   scripts:
   - install_server
 ...

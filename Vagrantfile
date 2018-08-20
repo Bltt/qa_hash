@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
 		set_cpus_and_memory(machine, new_vm)	
 		update_package_manager(machine, new_vm)
 		install_packages(machine, new_vm)	
+		set_shared_folders(machine, new_vm)
 		run_scripts(machine, new_vm)
 	end
   end
@@ -53,6 +54,12 @@ def install_packages(machine, new_vm)
                 		sudo #{machine['package_manager']} install -y "#{pkg}"
         		SHELL
 		end
+	end
+end
+
+def set_shared_folders(machine, new_vm)
+	machine['shared_folders'].each do |dir|
+		new_vm.vm.synced_folder dir['host'], dir['guest']
 	end
 end
 
