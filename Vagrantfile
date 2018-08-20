@@ -16,9 +16,18 @@ Vagrant.configure("2") do |config|
   machines.each do |machine|
 	config.vm.define "#{machine['name']}" do |new_vm|
 		new_vm.vm.box = "#{machine['box']}"
+		new_vm.vm.network "forwarded_port", guest: machine['guest_port'], host: machine['host_port']
 		new_vm.vm.provider "virtualbox" do |vb|
 			vb.cpus = "#{machine['cpus']}"
 			vb.memory = "#{machine['memory']}"
+		end
+		machine['packages'].each do |pkg|
+			new_vm.vm.provision "shell", inline: <<-SHELL
+				sudo yum install -y "#{pkg}" 
+			SHELL
+		end
+		machine['scripts'].each do |script|
+			new_vm.vm.provision "shell", path: "vagrant_scripts/#{script}"
 		end
 	end
   end

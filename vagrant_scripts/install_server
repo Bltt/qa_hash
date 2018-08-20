@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo yum install -y git
+
 sudo useradd jenkins
 git clone https://github.com/Bltt/python-systemd-http-server.git /home/jenkins/python-systemd-http-server && cd /home/jenkins/python-systemd-http-server
 sudo make install

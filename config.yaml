@@ -3,8 +3,22 @@
   box: centos/7
   cpus: 1
   memory: 2048
+  host_port: 9000
+  guest_port: 9000
+  packages:
+  - git
+  - vim
+  scripts:
+  - install_server
 - name: server
   box: centos/7
   cpus: 1
   memory: 2048
+  host_port: 9001
+  guest_port: 9000
+  packages:
+  - git
+  - vim
+  scripts:
+  - install_server
 ...
