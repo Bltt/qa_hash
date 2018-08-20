@@ -28,11 +28,11 @@ Contains various config options;
   - install_server
 ...
 ```
-**name**            - Name of the server to spin up.
-**box**             - os to use
-**cpu**             - number of cores
-**memory**          - ram to provide
-**forward_ports**   - guest and host pairs for ports to forward that can be accessed through localhost:host listening on guest on the machine.
-**package_manager** - package manager to use, eg yum or apt-get
-**packages**        - packages to download and install
-**scripts**         - scripts to run after installation, stored in vagrant/scripts
+* **name**            - Name of the server to spin up.
+* **box**             - os to use
+* **cpu**             - number of cores
+* **memory**          - ram to provide
+* **forward_ports**   - guest and host pairs for ports to forward that can be accessed through localhost:host listening on guest on the machine.
+* **package_manager** - package manager to use, eg yum or apt-get
+* **packages**        - packages to download and install
+* **scripts**         - scripts to run after installation, stored in vagrant/scripts
