@@ -21,10 +21,11 @@ Rest of the Vagrantfile loops through each machine, calling functions iterativel
 options.
 
 
-### Config.yaml ####
+### Config ####
 
 Contains various config options;
-
+The following is in yaml, however there is the option to use the exact same options in .json (the
+only difference is notation as opposed to naming)
 ```yaml
 ---
 - name: jenkins
