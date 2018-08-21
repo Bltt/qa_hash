@@ -12,11 +12,12 @@
   packages:
   - git
   - vim
-  shared_folders:
-  - host: ~/shared_vagrant
-    guest: /home/vagrant/shared
+    #shared_folders:
+    #- host: ~/shared_vagrant
+    # guest: /home/vagrant/shared
   scripts:
   - install_server
+  - install_jenkins
 - name: server
   box: centos/7
   cpus: 1
