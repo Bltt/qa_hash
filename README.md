@@ -5,6 +5,22 @@
 Vagrantfile: created in ruby
 Split into various functions to call as it provisions the box - options on config.yaml
 
+#### Vagrantfile ####
+
+```ruby
+if File.file? "#{filename}.json"
+    machines = JSON.parse(File.read("#{filename}.json"))
+else
+    machines = YAML.load_file("#{filename}.yaml")
+end
+```
+Checks if the filename variable json exists (default "config") and uses that for vagrant
+configuration, else uses a yaml.
+
+Rest of the Vagrantfile loops through each machine, calling functions iteratively to set the various
+options.
+
+
 #### Config.yaml #####
 
 Contains various config options;
