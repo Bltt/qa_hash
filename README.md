@@ -5,7 +5,7 @@
 Vagrantfile: created in ruby
 Split into various functions to call as it provisions the box - options on config.yaml
 
-#### Vagrantfile ####
+### Vagrantfile ###
 
 ```ruby
 if File.file? "#{filename}.json"
@@ -21,7 +21,7 @@ Rest of the Vagrantfile loops through each machine, calling functions iterativel
 options.
 
 
-#### Config.yaml #####
+### Config.yaml ####
 
 Contains various config options;
 
