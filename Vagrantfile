@@ -1,7 +1,15 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'yaml'
-machines = YAML.load_file("config.yaml")
+require 'json'
+
+filename = "config"
+
+if File.file? "#{filename}.json"
+    machines = JSON.parse(File.read("#{filename}.json"))
+else
+    machines = YAML.load_file("#{filename}.yaml")
+end
 
 Vagrant.configure("2") do |config| 
   machines.each do |machine|
