@@ -41,6 +41,9 @@ only difference is notation as opposed to naming)
   packages:
   - git
   - vim
+   shared_folders:
+  - host: ~/shared_vagrant
+    guest: /home/vagrant/shared
   scripts:
   - install_server
 ...
@@ -52,4 +55,5 @@ only difference is notation as opposed to naming)
 * **forward_ports**   - guest and host pairs for ports to forward that can be accessed through localhost:host listening on guest on the machine.
 * **package_manager** - package manager to use, eg yum or apt-get
 * **packages**        - packages to download and install
+* **shared_folders**  - shared folder to add between the VM and host(windows)
 * **scripts**         - scripts to run after installation, stored in vagrant/scripts
